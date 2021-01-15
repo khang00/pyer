@@ -4,7 +4,7 @@ import io from 'socket.io-client'
 export const strict = false
 
 export const DEFAULT_PARAMS = {
-  SIG_URL: 'http://178.128.119.82:3000',
+  SIG_URL: 'https://178.128.119.82:3000',
   RTC_CONFIG: {
     iceServers: [
       {
