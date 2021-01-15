@@ -1,7 +1,10 @@
 import Peer from 'simple-peer'
+import io from 'socket.io-client'
+
+export const strict = false
 
 export const DEFAULT_PARAMS = {
-  SIG_URL: 'http://localhost:3000',
+  SIG_URL: 'http://178.128.119.82:3000',
   RTC_CONFIG: {
     iceServers: [
       {
@@ -16,7 +19,7 @@ export const DEFAULT_PARAMS = {
       }
     ]
   },
-  MEDIA_OPTS: { audio: false, video: true },
+  MEDIA_OPTS: {audio: false, video: true},
   OFFER_OPTS: {
     offerToReceiveAudio: 1,
     offerToReceiveVideo: 1
@@ -60,7 +63,7 @@ export function User(username, localStream) {
     const peerConnection = new Connection(connection, this.username, toUser, this.signalingServer)
     this.connections.set(toUser, peerConnection)
   }
-
+  this.callUser = (toUser) => this.initConnection(false, toUser)
   this.sendData = (data, toUser) => {
     if (this.connections.has(toUser)) {
       this.connections.get(toUser).connection.send(data)
@@ -98,7 +101,6 @@ export function Connection(connection, fromUser, toUser, signalingServer) {
   })
 
   this.connection.on('stream', stream => {
-    console.log(`${this.from}: ${data.toString()}`)
     this.remoteStream = stream
   })
 }

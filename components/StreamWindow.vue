@@ -1,13 +1,13 @@
 <template>
-  <v-container>
-    <video :src-object.prop.camel="stream"></video>
+  <v-container v-if="stream !== undefined">
+    <video :src-object.prop.camel="stream" autoplay></video>
   </v-container>
 </template>
 
 <script>
 export default {
   name: "StreamWindow.vue",
-  props: ['stream']
+  props: ['stream'],
 }
 </script>
 

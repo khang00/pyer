@@ -13,6 +13,7 @@
     "@nuxtjs/axios": "^5.12.2",
     "core-js": "^3.6.5",
     "nuxt": "^2.14.6",
+    "nuxt-socket-io": "^1.1.13",
     "simple-peer": "^9.9.3",
     "socket.io-client": "^3.0.5"
   },
