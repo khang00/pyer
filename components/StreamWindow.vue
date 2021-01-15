@@ -1,6 +1,6 @@
 <template>
   <v-container v-if="stream !== undefined">
-    <video :src-object.prop.camel="stream" autoplay></video>
+    <video width="250" height="200" :src-object.prop.camel="stream" autoplay></video>
   </v-container>
 </template>
 

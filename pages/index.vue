@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row align="center" justify="center">
+    <v-row v-if="user === undefined" align="center" justify="center">
       <v-col cols="2">
         <v-btn @click="login()">Login</v-btn>
       </v-col>
@@ -10,19 +10,20 @@
     </v-row>
     <v-container v-if="user !== undefined">
       <v-row align="center" justify="center">
-        <video :src-object.prop.camel="localStream" autoplay></video>
-      </v-row>
-      <v-row align="center" justify="center">
-        <v-col cols="4">
+        <v-col cols="2">
           <v-btn @click="callUser()">Call To User</v-btn>
         </v-col>
-        <v-col cols="8">
+        <v-col cols="6">
           <v-text-field v-model="calleeUsername" label="Username to be Called" outlined></v-text-field>
         </v-col>
       </v-row>
+      <v-row align="center" justify="center">
+        <video :src-object.prop.camel="localStream" autoplay></video>
+      </v-row>
       <v-row>
-        <StreamWindow v-for="(remoteStream, index) in remoteStreams" :key="index"
-                      :stream="remoteStream"></StreamWindow>
+        <v-col v-for="(remoteStream, index) in remoteStreams" :key="index" cols="3" justify="space-around">
+          <StreamWindow :stream="remoteStream"></StreamWindow>
+        </v-col>
       </v-row>
     </v-container>
   </v-container>
