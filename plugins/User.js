@@ -27,7 +27,7 @@ export const DEFAULT_PARAMS = {
 }
 
 export function User(username, localStream, onStream) {
-  this.signalingServer = io(DEFAULT_PARAMS.SIG_URL)
+  this.signalingServer = io(DEFAULT_PARAMS.SIG_URL, {secure: true})
   this.signalingServer.on('connection', () => {
     this.signalingServer.emit('login', username)
   })
