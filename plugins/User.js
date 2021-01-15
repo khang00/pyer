@@ -4,7 +4,7 @@ import io from 'socket.io-client'
 export const strict = false
 
 export const DEFAULT_PARAMS = {
-  SIG_URL: 'https://178.128.119.82:3000',
+  SIG_URL: 'https://localhost:8000',
   RTC_CONFIG: {
     iceServers: [
       {
@@ -27,7 +27,10 @@ export const DEFAULT_PARAMS = {
 }
 
 export function User(username, localStream, onStream) {
-  this.signalingServer = io(DEFAULT_PARAMS.SIG_URL, {secure: true})
+  this.signalingServer = io(DEFAULT_PARAMS.SIG_URL, {
+    secure: true,
+    path: '/ws'
+  })
   this.signalingServer.on('connection', () => {
     this.signalingServer.emit('login', username)
   })
