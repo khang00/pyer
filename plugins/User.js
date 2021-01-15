@@ -26,7 +26,7 @@ export const DEFAULT_PARAMS = {
   },
 }
 
-export function User(username, localStream) {
+export function User(username, localStream, onStream) {
   this.signalingServer = io(DEFAULT_PARAMS.SIG_URL)
   this.signalingServer.on('connection', () => {
     this.signalingServer.emit('login', username)
@@ -60,7 +60,9 @@ export function User(username, localStream) {
       })
     }
 
-    const peerConnection = new Connection(connection, this.username, toUser, this.signalingServer)
+    const peerConnection = new Connection(connection,
+      this.username, toUser,
+      this.signalingServer, onStream)
     this.connections.set(toUser, peerConnection)
   }
   this.callUser = (toUser) => this.initConnection(false, toUser)
@@ -71,7 +73,7 @@ export function User(username, localStream) {
   }
 }
 
-export function Connection(connection, fromUser, toUser, signalingServer) {
+export function Connection(connection, fromUser, toUser, signalingServer, onStream) {
   this.connection = connection
   this.from = fromUser
   this.to = toUser
@@ -102,5 +104,6 @@ export function Connection(connection, fromUser, toUser, signalingServer) {
 
   this.connection.on('stream', stream => {
     this.remoteStream = stream
+    onStream(stream)
   })
 }

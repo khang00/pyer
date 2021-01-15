@@ -21,7 +21,6 @@
         </v-col>
       </v-row>
       <v-row>
-        <StreamWindow :stream="test"></StreamWindow>
         <StreamWindow v-for="(remoteStream, index) in remoteStreams" :key="index"
                       :stream="remoteStream"></StreamWindow>
       </v-row>
@@ -40,36 +39,25 @@ export default {
       username: '',
       calleeUsername: '',
       localStream: '',
+      remoteStreams: [],
       user: undefined,
       connections: undefined,
-      test: undefined
     }
   },
   components: {
     'stream-window': StreamWindow
   },
-  computed: {
-    remoteStreams() {
-      const remoteStreams = []
-
-      if (this.connections !== undefined) {
-        for (let connection of this.connections.values()) {
-          remoteStreams.push(connection.remoteStream)
-        }
-      }
-
-      return remoteStreams
-    }
-  },
   methods: {
     async login() {
       this.localStream = await navigator.mediaDevices.getUserMedia(DEFAULT_PARAMS.MEDIA_OPTS)
-      this.user = new User(this.username, this.localStream)
+      this.user = new User(this.username, this.localStream, this.onStream)
     },
     async callUser() {
       await this.user.callUser(this.calleeUsername)
       this.connections = this.user.connections
-      this.test = this.user.connections.values()[0]
+    },
+    onStream(stream) {
+      this.remoteStreams.push(stream)
     }
   }
 }
