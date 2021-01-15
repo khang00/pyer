@@ -41,7 +41,6 @@ export default {
       localStream: '',
       remoteStreams: [],
       user: undefined,
-      connections: undefined,
     }
   },
   components: {
@@ -54,7 +53,6 @@ export default {
     },
     async callUser() {
       await this.user.callUser(this.calleeUsername)
-      this.connections = this.user.connections
     },
     onStream(stream) {
       this.remoteStreams.push(stream)
