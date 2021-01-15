@@ -48,8 +48,17 @@ export default {
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
+  proxy: {
+    '/ws': {
+      target: 'http://localhost:3000',
+      pathRewrite: {
+        '^/ws' : '/'
+      }
+    }
+  },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 
