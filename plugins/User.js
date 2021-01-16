@@ -19,7 +19,7 @@ export const DEFAULT_PARAMS = {
       }
     ]
   },
-  MEDIA_OPTS: {audio: false, video: true},
+  MEDIA_OPTS: {audio: true, video: true},
   OFFER_OPTS: {
     offerToReceiveAudio: 1,
     offerToReceiveVideo: 1
